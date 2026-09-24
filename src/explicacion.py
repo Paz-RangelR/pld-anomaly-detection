@@ -43,6 +43,23 @@ FRASES = {
 }
 
 
+# Version corta de lo mismo, para etiquetas de grafica. Las frases de arriba se
+# leen bien dentro de una tabla, pero en el eje de una barra horizontal no
+# caben y el navegador las corta a media palabra.
+FRASES_CORTAS = {
+    "monto_vs_mediana_propia": "monto fuera de escala",
+    "dias_desde_pago_anterior": "hueco entre pagos",
+    "desv_vs_ritmo_propio": "ritmo distinto",
+    "n_pagos_mes": "varios pagos al mes",
+    "razon_pago_vs_factura": "pago distinto a factura",
+    "es_monto_redondo": "monto redondo",
+    "n_contrapartes_distintas": "varios orígenes",
+    "contraparte_nueva": "origen nuevo",
+    "meses_inactivo_previos": "cuenta reactivada",
+    "pct_del_total_anual": "peso en su año",
+}
+
+
 def atribuir(detector, X: pd.DataFrame) -> pd.DataFrame:
     """Matriz de contribuciones: una fila por operación, una columna por feature.
 

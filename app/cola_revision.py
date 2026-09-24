@@ -134,7 +134,7 @@ tabla = del_mes[list(columnas)].rename(columns=columnas)
 st.dataframe(
     tabla,
     hide_index=True,
-    use_container_width=True,
+    width="stretch",
     column_config={
         "Fecha": st.column_config.DateColumn(format="DD/MM/YYYY"),
         "Monto": st.column_config.NumberColumn(format="dollar"),
@@ -168,9 +168,12 @@ with izq:
                 f"· empresa {caso['empresa']}")
     if pd.notna(caso.get("mediana_propia")) and caso.get("mediana_propia"):
         veces = caso["monto"] / caso["mediana_propia"]
+        # Los signos de peso van escapados: Streamlit interpreta $...$ como
+        # LaTeX, y sin la diagonal todo lo que queda entre los dos montos se
+        # renderiza como una formula matematica.
         st.markdown(
-            f"Pagó **${caso['monto']:,.0f}** el {caso['fecha']:%d/%m/%Y}. "
-            f"Su pago habitual es de **${caso['mediana_propia']:,.0f}**, "
+            rf"Pagó **\${caso['monto']:,.0f}** el {caso['fecha']:%d/%m/%Y}. "
+            rf"Su pago habitual es de **\${caso['mediana_propia']:,.0f}**, "
             f"así que este es **{veces:,.1f}×** lo suyo "
             f"({abs(caso['z_robusto']):.1f} desviaciones robustas)."
         )
@@ -187,11 +190,11 @@ with der:
                .astype(float)
                .sort_values(ascending=False)
                .head(5))
-    from src.explicacion import FRASES  # noqa: E402
+    from src.explicacion import FRASES_CORTAS  # noqa: E402
 
     st.bar_chart(
         pd.DataFrame({"aporte al score": aportes.to_numpy()},
-                     index=[FRASES.get(f, f) for f in aportes.index]),
+                     index=[FRASES_CORTAS.get(f, f) for f in aportes.index]),
         horizontal=True, height=260,
     )
     st.caption(
