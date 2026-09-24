@@ -23,6 +23,8 @@ import streamlit as st
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ))
 
+from src.explicacion import FRASES_CORTAS  # noqa: E402
+
 DATOS = RAIZ / "data" / "synthetic"
 COLA = DATOS / "cola_revision.csv"
 HISTORIAL = DATOS / "historial_alertados.csv"
@@ -190,8 +192,6 @@ with der:
                .astype(float)
                .sort_values(ascending=False)
                .head(5))
-    from src.explicacion import FRASES_CORTAS  # noqa: E402
-
     st.bar_chart(
         pd.DataFrame({"aporte al score": aportes.to_numpy()},
                      index=[FRASES_CORTAS.get(f, f) for f in aportes.index]),
