@@ -271,7 +271,7 @@ compliance lead can have with a budget holder.
 No credentials, no database, no network.
 
 ```bash
-git clone https://github.com/chino-bot1701/pld-anomaly-detection.git
+git clone https://github.com/Paz-RangelR/pld-anomaly-detection.git
 cd pld-anomaly-detection
 pip install -r requirements.txt
 
